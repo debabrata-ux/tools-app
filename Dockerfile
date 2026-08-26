@@ -11,8 +11,7 @@ COPY . .
 RUN composer update --no-dev --optimize-autoloader --no-interaction --no-scripts
 RUN composer dump-autoload --optimize --no-scripts
 
-RUN chown -R www-data:www-data storage bootstrap/cache
-
+RUN mkdir -p storage bootstrap/cache && chown -R www-data:www-data storage bootstrap/cache
 RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
