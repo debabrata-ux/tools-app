@@ -10,7 +10,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+RUN composer install --ignore-platform-req=php --no-dev --optimize-autoloader --no-interaction --no-scripts
 RUN composer dump-autoload --optimize --no-scripts
 
 RUN mkdir -p storage bootstrap/cache && chown -R www-data:www-data storage bootstrap/cache
