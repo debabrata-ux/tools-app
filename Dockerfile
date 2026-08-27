@@ -17,5 +17,9 @@ RUN a2enmod rewrite
 RUN sed -ri 's!^/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
+RUN echo "===== ENABLED MPM MODULES =====" && \
+    ls -la /etc/apache2/mods-enabled/mpm_* || true && \
+    echo "===== APACHE MPM QUERY =====" && \
+    a2query -M || true
 
 CMD ["apache2-foreground"]
