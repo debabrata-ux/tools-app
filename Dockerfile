@@ -1,6 +1,8 @@
 FROM php:8.2-apache
 
-RUN apt-get update && apt-get install -y git unzip libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libxml2-dev libicu-dev && docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install pdo_mysql mbstring zip gd intl xml
+RUN apt-get update && apt-get install -y git unzip libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libxml2-dev libicu-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring zip gd intl xml exif
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -8,8 +10,6 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --ignore-platform-req=ext-exif --no-dev --optimize-autoloader --no-interaction --no-scripts
-``` *(Note: Installing `exif` via the first method is recommended to prevent runtime errors).*
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 RUN composer dump-autoload --optimize --no-scripts
 
