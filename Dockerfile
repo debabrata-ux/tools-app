@@ -8,6 +8,8 @@ WORKDIR /var/www/html
 
 COPY . .
 
+RUN composer install --ignore-platform-req=ext-exif --no-dev --optimize-autoloader --no-interaction --no-scripts
+``` *(Note: Installing `exif` via the first method is recommended to prevent runtime errors).*
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 RUN composer dump-autoload --optimize --no-scripts
 
